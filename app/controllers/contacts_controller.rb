@@ -1,6 +1,19 @@
 class ContactsController < ApplicationController
+
   def index
-    @contacts = Contact.all
+    # @contacts = Contact.all
+    sort_attribute = params[:sort]
+    search_term = params[:search_term]
+
+    if sort_attribute
+      @contacts = Contact.order(sort_attribute)
+    else
+      @contacts = Contact.all
+    end
+
+    if search_term
+      @contacts = @contacts.where("first_name LIKE ? OR last_name LIKE ? OR email LIKE ?", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%", "%#{search_term}%")
+    end
   end
 
   def new
@@ -13,7 +26,7 @@ class ContactsController < ApplicationController
       middle_name: params[:middle_name],
       last_name: params[:last_name],
       email: params[:email],
-      phone_number: params[:params],
+      phone_number: params[:phone_number],
       bio: params[:bio]
       )
 
@@ -23,6 +36,7 @@ class ContactsController < ApplicationController
 
   def show
     @contact = Contact.find(params[:id])
+    # @contacts = @contact.contact_list
   end
 
   def edit
@@ -37,7 +51,7 @@ class ContactsController < ApplicationController
       middle_name: params[:middle_name],
       last_name: params[:last_name],
       email: params[:email],
-      phone_number: params[:params],
+      phone_number: params[:phone_number],
       bio: params[:bio]
       )
 
@@ -49,7 +63,8 @@ class ContactsController < ApplicationController
     contact = Contact.find(params[:id])
     contact.destroy
 
-    flash[:warning] = "Contact Destroyed"
+    flash[:warning] = "Contact Obliterated!!"
     redirect_to '/'
   end
+
 end
