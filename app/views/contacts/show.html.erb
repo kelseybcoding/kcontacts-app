@@ -9,5 +9,6 @@
 <h3>Email: <%= @contact.email %></h3>
 <h3>Bio: <%= @contact.bio %></h3>
 
-  <%= link_to "Edit", "/contacts/#{@contact.id}/edit", class: "btn btn-success" %>
-  <%= link_to "Delete", "/contacts/#{@contact.id}", {method: :delete, class: "btn btn-danger" }%>
+<%= link_to "Edit", "/contacts/#{@contact.id}/edit", class: "btn btn-success" %>
+<%= link_to "Delete", "/contacts/#{@contact.id}", {method: :delete, class: "btn btn-danger" }%>
+  
